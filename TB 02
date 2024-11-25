@@ -3,10 +3,10 @@
 #include <string.h>
 
 char *ChargerChaine(int N) {
-    char *chaine = (char*)malloc(N+1); // +1 للبايت الصفري
-    printf("ادخل السلسلة: ");
+    char *chaine = (char*)malloc(N+1); // +1 pour le caractère de fin de chaîne
+    printf("Entrez la chaîne : ");
     fgets(chaine, N, stdin);
-    chaine[strcspn(chaine, "\n")] = 0; // حذف حرف النهاية إذا كان \n
+    chaine[strcspn(chaine, "\n")] = 0; // Supprimer le '\n' éventuel à la fin
     return chaine;
 }
 
@@ -33,20 +33,20 @@ void AfficherTab(char Tab[], int m) {
 
 int main() {
     int n;
-    printf("ادخل الحجم المطلوب للسلسلة: ");
+    printf("Veuillez saisir la taille maximale de la chaîne : ");
     scanf("%d", &n);
 
     char *chaine = ChargerChaine(n);
-    int longueur = Longueur(chaine);
+    int m = Longueur(chaine);
 
-    char Tab[longueur], T[longueur];
+    char Tab[m], T[m];
     ChargerTab(chaine, Tab);
 
-    printf("السلسلة الأصلية: %s\n", Tab);
+    printf("La chaîne originale : %s\n", Tab);
 
-    InverserTab(Tab, T, longueur);
-    printf("السلسلة المعكوسة: ");
-    AfficherTab(T, longueur);
+    InverserTab(Tab, T, m);
+    printf("La chaîne inversée : ");
+    AfficherTab(T, m);
 
     free(chaine);
     return 0;
