@@ -2,31 +2,40 @@
 #include <stdlib.h>
 #include <string.h>
 
+// Fonction pour charger une chaîne de caractères
 char *ChargerChaine(int N) {
     char *chaine = (char*)malloc(N+1); // +1 pour le caractère de fin de chaîne
-    printf("Entrez la chaîne : ");
+    if (chaine == NULL) {
+        printf("Erreur d'allocation mémoire\n");
+        exit(1);
+    }
+    printf("Entrez une chaîne de caractères : ");
     fgets(chaine, N, stdin);
-    chaine[strcspn(chaine, "\n")] = 0; // Supprimer le '\n' éventuel à la fin
+    chaine[strcspn(chaine, "\n")] = 0; // Supprimer le caractère de nouvelle ligne
     return chaine;
 }
 
-int Longueur(char *ch) {
-    return strlen(ch);
+// Fonction pour calculer la longueur d'une chaîne
+int Longueur(char *chaine) {
+    return strlen(chaine);
 }
 
-void ChargerTab(char *p, char Tab[]) {
-    strcpy(Tab, p);
+// Fonction pour copier une chaîne dans un tableau
+void ChargerTab(char *chaine, char tab[]) {
+    strcpy(tab, chaine);
 }
 
-void InverserTab(char Tab[], char T[], int m) {
+// Fonction pour inverser un tableau de caractères
+void InverserTab(char tab[], char T[], int m) {
     for (int i = 0; i < m; i++) {
-        T[i] = Tab[m - i - 1];
+        T[i] = tab[m-i-1];
     }
 }
 
-void AfficherTab(char Tab[], int m) {
+// Fonction pour afficher un tableau de caractères
+void AfficherTab(char tab[], int m) {
     for (int i = 0; i < m; i++) {
-        printf("%c", Tab[i]);
+        printf("%c", tab[i]);
     }
     printf("\n");
 }
@@ -39,15 +48,14 @@ int main() {
     char *chaine = ChargerChaine(n);
     int m = Longueur(chaine);
 
-    char Tab[m], T[m];
-    ChargerTab(chaine, Tab);
+    char tab[m], T[m];
+    ChargerTab(chaine, tab);
+    AfficherTab(tab, m);
 
-    printf("La chaîne originale : %s\n", Tab);
-
-    InverserTab(Tab, T, m);
-    printf("La chaîne inversée : ");
+    InverserTab(tab, T, m);
     AfficherTab(T, m);
 
     free(chaine);
     return 0;
 }
+
