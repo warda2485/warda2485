@@ -1,44 +1,45 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// تعريف بنية العنصر في القائمة
+// Structure représentant un élément de la liste
 typedef struct element {
-    int val;
+    int valeur;
     struct element *suivant;
 } element;
 
-// إنشاء قائمة فارغة
+// Fonction pour créer une liste vide
 element *creerListe() {
-    return NULL;
+    return NULL; // Une liste vide est représentée par NULL
 }
 
-// إضافة عنصر في بداية القائمة
+// Fonction pour ajouter un élément au début de la liste
 element *ajouterEnDebut(element *liste, int valeur) {
     element *nouveau = (element*)malloc(sizeof(element));
-    nouveau->val = valeur;
-    nouveau->suivant = liste;
-    return nouveau;
+    nouveau->valeur = valeur;
+    nouveau->suivant = liste; // Le nouvel élément pointe vers l'ancien début
+    return nouveau; // Le nouveau début est le nouvel élément
 }
 
-// ملء القائمة من جدول
+// Fonction pour charger la liste à partir d'un tableau
 element *chargerListe(int tab[], int taille, element *liste) {
     for (int i = taille - 1; i >= 0; i--) {
-        liste = ajouterEnDebut(liste, tab[i]);
+        liste = ajouterEnDebut(liste, tab[i]); // On ajoute les éléments en sens inverse pour conserver l'ordre
     }
     return liste;
 }
 
-// طباعة عناصر القائمة
+// Fonction pour afficher les éléments de la liste
 void afficherListe(element *liste) {
     while (liste != NULL) {
-        printf("%d -> ", liste->val);
+        printf("%d -> ", liste->valeur);
         liste = liste->suivant;
     }
     printf("NULL\n");
 }
 
-// حذف العنصر الأخير
+// Fonction pour supprimer le dernier élément de la liste
 element *supprimerEnFin(element *liste) {
+    // Cas où la liste est vide ou contient un seul élément
     if (liste == NULL || liste->suivant == NULL) {
         return NULL;
     }
@@ -46,17 +47,17 @@ element *supprimerEnFin(element *liste) {
     while (precedent->suivant->suivant != NULL) {
         precedent = precedent->suivant;
     }
-    free(precedent->suivant);
+    free(precedent->suivant); // Libération de la mémoire
     precedent->suivant = NULL;
     return liste;
 }
 
-// تفريغ القائمة
+// Fonction pour vider la liste
 void viderListe(element *liste) {
     while (liste != NULL) {
         element *temp = liste;
         liste = liste->suivant;
-        free(temp);
+        free(temp); // Libération de la mémoire de chaque élément
     }
 }
 
